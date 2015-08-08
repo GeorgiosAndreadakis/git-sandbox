@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/doc_model_core/doc_model_core.iml" filepath="$PROJECT_DIR$/doc_model_core/doc_model_core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/req_sense/req_sense.iml" filepath="$PROJECT_DIR$/req_sense/req_sense.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rs.iml" filepath="$PROJECT_DIR$/rs.iml" />
+    </modules>
+  </component>
+</project>

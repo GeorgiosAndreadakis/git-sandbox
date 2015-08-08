@@ -1,0 +1,78 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.4.RELEASE")
+    }
+}
+
+apply plugin: 'war'
+apply plugin: 'spring-boot'
+
+println ''
+println '[build.gradle] Configuration of the module \'req_sense\'.'
+println '---------------------------------------------------------'
+println ''
+
+def wicketVersion = '6.20.0'
+
+jar {
+    baseName = "reqsense"
+    version = '0.0.1-SNAPSHOT'
+}
+
+configurations {
+    providedRuntime
+}
+dependencies {
+    compile 'org.slf4j:slf4j-jdk14:1.7.12'
+    compile 'org.slf4j:slf4j-log4j12:1.7.5'
+    compile 'commons-logging:commons-logging:1.2'
+
+    compile ('org.springframework.boot:spring-boot-starter') {
+        exclude group: 'org.slf4j'
+        exclude group: 'ch.qos.logback'
+    }
+    providedCompile ('org.springframework.boot:spring-boot-starter-tomcat') {
+        exclude module: "spring-boot-starter-jetty"
+        exclude group: 'org.slf4j'
+        exclude group: 'ch.qos.logback'
+    }
+
+    compile ('javax.servlet:javax.servlet-api:3.1.0') {
+        exclude group: 'org.slf4j'
+        exclude group: 'ch.qos.logback'
+    }
+
+    compile  (group: 'org.springframework', name: 'spring-web', version: springVersion) {
+        exclude group: 'org.slf4j'
+        exclude group: 'ch.qos.logback'
+    }
+    compile (group: 'org.apache.wicket', name: 'wicket-spring', version: wicketVersion) {
+        exclude group: 'org.slf4j'
+        exclude group: 'ch.qos.logback'
+    }
+
+    testCompile  (group: 'org.springframework', name: 'spring-test', version: springVersion) {
+        exclude group: 'org.slf4j'
+        exclude group: 'ch.qos.logback'
+    }
+    testCompile ('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.slf4j'
+        exclude group: 'ch.qos.logback'
+    }
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+        }
+        resources {
+            srcDir 'src/main/resources'
+            srcDir 'src/main/java'
+        }
+    }
+}

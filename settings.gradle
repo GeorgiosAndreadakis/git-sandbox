@@ -1,0 +1,6 @@
+println ""
+println "Starting build at : " + new Date()
+println 'Initializing the settings of the top-level project.'
+println ""
+
+include 'doc_model_core', 'req_sense'
