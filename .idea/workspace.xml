@@ -8,9 +8,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2ce57e6a-a03f-45eb-960a-b1f22828b939" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/gradle.xml" afterPath="$PROJECT_DIR$/.idea/gradle.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/git-sandbox.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/req_sense/req_sense.iml" afterPath="$PROJECT_DIR$/req_sense/req_sense.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="rs.iws" />
@@ -2283,12 +2283,19 @@
       <workItem from="1438063006370" duration="2033000" />
       <workItem from="1438233363570" duration="3781000" />
       <workItem from="1438243375532" duration="4696000" />
-      <workItem from="1439123054294" duration="658000" />
+      <workItem from="1439123054294" duration="819000" />
     </task>
+    <task id="LOCAL-00001" summary="Intellij  project setup">
+      <created>1439123820523</created>
+      <option name="number" value="00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1439123820523</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="60692000" />
+    <option name="totallyTimeSpent" value="60853000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-8" width="1296" height="1040" extended-state="6" />
@@ -2341,6 +2348,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Intellij  project setup" />
+    <option name="LAST_COMMIT_MESSAGE" value="Intellij  project setup" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
