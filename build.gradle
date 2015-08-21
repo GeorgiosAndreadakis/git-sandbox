@@ -1,54 +1,85 @@
-apply plugin: 'idea'
-
-defaultTasks 'build'
-
+defaultTasks 'clean', 'build'
+def wicketVersion = '7.0.0'
 ext.springVersion = '4.1.7.RELEASE'
 
-subprojects {
-    apply plugin: 'java'
-    apply plugin: 'idea'
-
-    group = 'com.reqsense'
-    version = '1.0'
-
-	repositories {
+buildscript {
+    ext {
+        springBootVersion = '1.2.5.RELEASE'
+    }
+    repositories {
         mavenCentral()
     }
-
-	dependencies {
-
-        compile  (group: 'org.springframework', name: 'spring-context', version: springVersion) {
-            exclude group: 'org.slf4j'
-            exclude group: 'ch.qos.logback'
-        }
-
-		testCompile (group: 'junit', name: 'junit', version: '4.12') {
-            exclude group: 'org.slf4j'
-            exclude group: 'ch.qos.logback'
-        }
-        testCompile ('org.mockito:mockito-core:2.0.24-beta') {
-            exclude group: 'org.slf4j'
-            exclude group: 'ch.qos.logback'
-        }
-	}
-
-    sourceCompatibility = 1.8
-    targetCompatibility = 1.8
-}
-
-project(':req_sense') {
     dependencies {
-        compile project(':doc_model_core')
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}") 
+        classpath("io.spring.gradle:dependency-management-plugin:0.5.2.RELEASE")
     }
 }
+
+allprojects {
+    group = 'com.reqsense'
+    version = '0.1.0'
+}
+
+apply plugin: 'java'
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+        }
+        resources {
+            srcDir 'src/main/java'
+            srcDir 'src/main/resources'
+        }
+    }
+}
+
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+apply plugin: 'io.spring.dependency-management' 
+apply plugin: 'war'
+
+bootRepackage {
+    mainClass = 'com.bootexample.SpringBootGradleMultiprojectApplication'
+}
+
+war {
+    baseName = 'app'
+    version = '0.0.1-SNAPSHOT'
+}
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    providedRuntime
+}
+
+dependencies {
+
+    compile ('javax.servlet:javax.servlet-api:3.1.0') {
+        exclude group: 'org.slf4j'
+        exclude group: 'ch.qos.logback'
+    }
+    compile("org.springframework.boot:spring-boot-starter-data-mongodb")
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-security")
+    compile project(':reqmodel')
+    compile (group: 'org.apache.wicket', name: 'wicket-spring', version: wicketVersion) {
+        exclude group: 'org.slf4j'
+        exclude group: 'ch.qos.logback'
+    }
+    compile (group: 'org.apache.wicket', name: 'wicket-auth-roles', version: wicketVersion)
+
+    providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
+
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+    testCompile project(':reqmodel')
+}
+
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.4'
-}
-
-gradle.taskGraph.afterTask { Task task, TaskState state ->
-
-    if (task.name.equals('build') && (task.project.name.equals("req_sense")) ) {
-        print "Finished at : " + new Date() + "\n"
-    }
 }
