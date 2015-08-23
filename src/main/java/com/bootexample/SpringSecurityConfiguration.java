@@ -1,6 +1,8 @@
 /* Copyright 2015 by Andreadakis Consulting */
 package com.bootexample;
 
+import com.bootexample.security.MyUserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,6 +18,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 @SuppressWarnings("unused")
 public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private MyUserDetailsService userDetailsService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -38,10 +43,9 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .inMemoryAuthentication()
-                .withUser("dummy")
-                .password("dummy")
-                .roles("USER");
+        if (userDetailsService == null) {
+            throw new IllegalStateException("No user detail service available, was not wired into the security configuration.");
+        }
+        auth.userDetailsService(userDetailsService);
     }
 }
