@@ -2,14 +2,16 @@
 package com.bootexample;
 
 import org.apache.wicket.protocol.http.WicketFilter;
-import org.apache.wicket.spring.SpringWebApplicationFactory;
 import org.springframework.boot.context.embedded.ServletContextInitializer;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.filter.DelegatingFilterProxy;
 
+import javax.servlet.DispatcherType;
+import javax.servlet.FilterConfig;
 import javax.servlet.FilterRegistration;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import java.util.EnumSet;
 
 /**
  * This class is the replacement of the web.xml.
@@ -20,18 +22,22 @@ import javax.servlet.ServletException;
 @Configuration
 public class WebInitializer implements ServletContextInitializer {
 
-    private static final String PARAM_APP_BEAN = "applicationBean";
-
     @Override
-    public void onStartup(ServletContext sc) throws ServletException {
+    public void onStartup(ServletContext servletContext) throws ServletException {
 
-        FilterRegistration filter = sc.addFilter("wicket-filter", WicketFilter.class);
-        filter.setInitParameter(WicketFilter.APP_FACT_PARAM, SpringWebApplicationFactory.class.getName());
-        filter.setInitParameter(PARAM_APP_BEAN, "springBootGradleMultiprojectApplication");
-        // This line is the only surprise when comparing to the equivalent
-        // web.xml. Without some initialization seems to be missing.
-        filter.setInitParameter(WicketFilter.FILTER_MAPPING_PARAM, "/*");
-        filter.addMappingForUrlPatterns(null, false, "/*");
+        // Spring Securityn Filter
+        FilterRegistration.Dynamic springSecurityFilterChainReg = servletContext.addFilter("springSecurityFilterChain", DelegatingFilterProxy.class);
+        springSecurityFilterChainReg.addMappingForUrlPatterns(EnumSet.of(DispatcherType.ERROR, DispatcherType.REQUEST), false, "/*");
+
+        // Wicket Filter
+        WicketFilter wicketFilter = new WicketFilter(new SpringBootGradleMultiprojectApplication()) {
+            @Override
+            public void init(boolean isServlet, FilterConfig filterConfig) throws ServletException {
+                setFilterPath("");
+                super.init(isServlet, filterConfig);
+            }
+        };
+        FilterRegistration.Dynamic wicketFilterReg = servletContext.addFilter("wicketFilter", wicketFilter);
+        wicketFilterReg.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "*");
     }
-
 }

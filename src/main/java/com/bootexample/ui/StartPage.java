@@ -1,35 +1,54 @@
 package com.bootexample.ui;
 
+import com.bootexample.HomePage;
+import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeAction;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.reqmodel.RequirementMetaInfo;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 
-import com.bootexample.HomePage;
-
+@AuthorizeAction(action = "ENABLE", roles = {"ROLE_USER"})
 public class StartPage extends WebPage {
 
     @SpringBean
     @SuppressWarnings("serial, unused")
     private RequirementMetaInfo requirementMetaInfo;
 
-    public StartPage() {
+    @Override
+    protected void onInitialize() {
+        super.onInitialize();
 
-        Label message = new Label("message", new LoadableDetachableModel<String>() {
+        add(new Label("message", new LoadableDetachableModel<String>() {
             @Override
             protected String load() {
-                return requirementMetaInfo.meinSenf() +  "\nAhoi!";
+                return requirementMetaInfo.meinSenf() + "\nAhoi!";
             }
-        });
-        add(message);
+        }));
 
-        add(new Link("linkToHome") {
+        add(new Link<Void>("linkToHome") {
             @Override
             public void onClick() {
                 setResponsePage(HomePage.class);
             }
         });
+
+        add(new Label("userRightsLabel", buildSecurityInfo()));
+    }
+
+    private String buildSecurityInfo() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        StringBuilder sb = new StringBuilder();
+        sb.append("User '");
+        sb.append(authentication.getPrincipal());
+        sb.append("' with roles: ");
+        for (GrantedAuthority authority : authentication.getAuthorities()) {
+            sb.append(authority.getAuthority());
+        }
+        return sb.toString();
     }
 }
