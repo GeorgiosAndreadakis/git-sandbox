@@ -6,11 +6,18 @@
 </head>
 <body>
 
-    <h1><span wicket:id="message"></span></h1>
+    <h1><div wicket:id="message"></div></h1>
 
     <p>
         User rights:<br/>
-        <span wicket:id="userRightsLabel"/>
+        <div wicket:id="userRightsLabel"></div>
+    </p>
+
+    <p>
+        Stored Documents:<br/>
+        <ul>
+            <li wicket:id="listItems"><span wicket:id="title"/></li>
+        </ul>
     </p>
 
     <p>

@@ -22,6 +22,7 @@ public class MyApplicationListener implements ApplicationListener<ContextRefresh
 
     public void onApplicationEvent(ContextRefreshedEvent event) {
         saveIfNotExists("1", "1st dummy document");
+        saveIfNotExists("2", "A 2nd dummy document - yeah baby yeah");
     }
 
     private void saveIfNotExists(String id, String title) {
