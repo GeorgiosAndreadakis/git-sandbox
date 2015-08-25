@@ -30,6 +30,10 @@ import static org.junit.Assert.assertFalse;
 
 /**
  * Unit test of StartPage.
+ * <p>
+ *     Attention:<br/>
+ *     the web application and the database must be running to pass the tests.
+ * </p>
  *
  * @author Georgios Andreadakis (georgios@andreadakis-consulting.de)
  */

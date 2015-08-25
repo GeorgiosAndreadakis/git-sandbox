@@ -3,6 +3,7 @@ def wicketVersion = '7.0.0'
 ext.springVersion = '4.1.7.RELEASE'
 ext.springDataMongoDbVersion = '1.7.2.RELEASE'
 def springSecurityVersion = '4.0.2.RELEASE'
+def cucumberVersion = '1.2.4'
 
 buildscript {
     ext {
@@ -10,12 +11,17 @@ buildscript {
     }
     repositories {
         mavenCentral()
+        jcenter()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}") 
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath("io.spring.gradle:dependency-management-plugin:0.5.2.RELEASE")
+        classpath "com.github.samueltbrown:gradle-cucumber-plugin:0.8"
     }
 }
+
+apply plugin: "com.github.samueltbrown.cucumber"
+
 
 allprojects {
     group = 'com.reqsense'
@@ -41,7 +47,6 @@ apply plugin: 'idea'
 apply plugin: 'spring-boot'
 apply plugin: 'io.spring.dependency-management' 
 apply plugin: 'war'
-
 bootRepackage {
     mainClass = 'com.bootexample.SpringBootGradleMultiprojectApplication'
 }
@@ -81,6 +86,9 @@ dependencies {
     testCompile("org.springframework.boot:spring-boot-starter-test")
     testCompile(group: 'org.springframework.security', name: 'spring-security-test', version: springSecurityVersion)
     testCompile project(':reqmodel')
+    testCompile( group: 'info.cukes', name: 'cucumber-java8', version: cucumberVersion)
+    testCompile( group: 'info.cukes', name: 'cucumber-junit', version: cucumberVersion)
+    testCompile('org.seleniumhq.selenium:selenium-firefox-driver:2.47.1')
 }
 
 
