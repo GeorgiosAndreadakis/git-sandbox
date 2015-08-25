@@ -1,4 +1,4 @@
-defaultTasks 'clean', 'build'
+defaultTasks 'build'
 def wicketVersion = '7.0.0'
 ext.springVersion = '4.1.7.RELEASE'
 ext.springDataMongoDbVersion = '1.7.2.RELEASE'
@@ -11,16 +11,16 @@ buildscript {
     }
     repositories {
         mavenCentral()
-        jcenter()
+        //jcenter()
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath("io.spring.gradle:dependency-management-plugin:0.5.2.RELEASE")
-        classpath "com.github.samueltbrown:gradle-cucumber-plugin:0.8"
+        //classpath "com.github.samueltbrown:gradle-cucumber-plugin:0.8"
     }
 }
 
-apply plugin: "com.github.samueltbrown.cucumber"
+//apply plugin: "com.github.samueltbrown.cucumber"
 
 
 allprojects {
