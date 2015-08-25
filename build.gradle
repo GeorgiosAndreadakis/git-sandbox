@@ -83,6 +83,10 @@ dependencies {
 
     providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
 
+    testCompile ('org.mockito:mockito-core:2.0.24-beta') {
+        exclude group: 'org.slf4j'
+        exclude group: 'ch.qos.logback'
+    }
     testCompile("org.springframework.boot:spring-boot-starter-test")
     testCompile(group: 'org.springframework.security', name: 'spring-security-test', version: springSecurityVersion)
     testCompile project(':reqmodel')
@@ -90,7 +94,6 @@ dependencies {
     testCompile( group: 'info.cukes', name: 'cucumber-junit', version: cucumberVersion)
     testCompile('org.seleniumhq.selenium:selenium-firefox-driver:2.47.1')
 }
-
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.5'
