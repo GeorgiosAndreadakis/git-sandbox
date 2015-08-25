@@ -1,6 +1,6 @@
 defaultTasks 'build'
 def wicketVersion = '7.0.0'
-ext.springVersion = '4.1.7.RELEASE'
+ext.springVersion = '4.2.0.RELEASE'
 ext.springDataMongoDbVersion = '1.7.2.RELEASE'
 def springSecurityVersion = '4.0.2.RELEASE'
 def cucumberVersion = '1.2.4'
