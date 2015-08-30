@@ -1,0 +1,4 @@
+* Defining Bounded Contexts and creating a Context Map
+* Concept how to apply the Hexagonal Architectural Style
+* Defining entities and their identity strategies, e.g. page 192
+* Implementation Design: working with registries instead of Spring Dependeny Injection for every component, see page 271
