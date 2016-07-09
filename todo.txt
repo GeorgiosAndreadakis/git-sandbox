@@ -5,7 +5,5 @@
 ** Domain Events and Event Store
 * Defining Value Types
 * Defining Entities and their identity strategies, e.g. page 192
-* Implementation Design: working with registries instead of Spring Dependeny Injection for every component, see page 271
+* Implementation Design: working with registries instead of Spring Dependency Injection for every component, see page 271
 * Defining Aggregates
-
-* Test for setup user access
